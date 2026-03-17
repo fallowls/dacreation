@@ -206,7 +206,18 @@ export async function registerRoutes(
           console.error("Session login error stack:", loginErr.stack);
           return res.status(500).json({ message: "Login failed - session error", error: process.env.NODE_ENV !== 'production' ? loginErr.message : undefined });
         }
-        return res.json({ user });
+
+        req.session.save((saveErr) => {
+          if (saveErr) {
+            console.error("Session save error:", saveErr);
+            return res.status(500).json({
+              message: "Login failed - session persistence error",
+              error: process.env.NODE_ENV !== 'production' ? saveErr.message : undefined,
+            });
+          }
+
+          return res.json({ user });
+        });
       });
     })(req, res, next);
   });

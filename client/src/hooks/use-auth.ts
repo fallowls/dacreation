@@ -75,7 +75,9 @@ export function useAuth() {
   const { data, isLoading, error } = useQuery<AuthResponse>({
     queryKey: ["user"],
     queryFn: async () => {
-      const response = await fetch("/api/auth/me");
+      const response = await fetch("/api/auth/me", {
+        credentials: "include",
+      });
       if (!response.ok) {
         throw new Error("Not authenticated");
       }

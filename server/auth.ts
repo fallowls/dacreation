@@ -93,18 +93,20 @@ export function setupAuth(app: Express) {
     secret: sessionSecret || developmentOnlyFallback,
     resave: false,
     saveUninitialized: false,
+    proxy: isProduction,
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       httpOnly: true,
       sameSite: 'lax',
+      secure: false,
     },
     store: sessionStore,
   };
 
   if (isProduction) {
-    app.set("trust proxy", 1);
+    app.set("trust proxy", true);
     sessionSettings.cookie = {
-      secure: true,
+      secure: 'auto',
       httpOnly: true,
       sameSite: 'lax',
       maxAge: 30 * 24 * 60 * 60 * 1000,
