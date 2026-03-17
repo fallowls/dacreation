@@ -9,6 +9,7 @@ module.exports = {
       cwd: __dirname,
       script: "dist/index.cjs",
       interpreter: "node",
+      node_args: `--env-file=${envFilePath}`,
       exec_mode: "fork",
       instances: 1,
       watch: false,
@@ -18,7 +19,6 @@ module.exports = {
       restart_delay: 5000,
       kill_timeout: 5000,
       time: true,
-      env_file: envFilePath,
       env: {
         NODE_ENV: "production",
         PORT: port,
