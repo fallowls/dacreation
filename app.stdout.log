@@ -1,0 +1,3 @@
+Using custom NEON_DATABASE_URL
+[auth] Using memory session store
+[WebSocket] Server initialized on /ws/chat
